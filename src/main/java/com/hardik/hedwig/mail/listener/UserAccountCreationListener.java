@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.mail.MessagingException;
 
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.hardik.hedwig.dto.UserCreationRequestDto;
@@ -24,6 +25,7 @@ public class UserAccountCreationListener {
 	private final EmailService emailService;
 
 	@EventListener
+	@Async
 	public void listenToUserAccountCreationEvent(UserAccountCreationEvent userAccountCreationEvent) {
 		final var userCreationRequestDto = (UserCreationRequestDto) userAccountCreationEvent.getSource();
 		try {
