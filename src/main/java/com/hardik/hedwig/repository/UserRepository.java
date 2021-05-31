@@ -8,4 +8,6 @@ import com.hardik.hedwig.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+	boolean existsByEmailId(String emailId);
+
 }
