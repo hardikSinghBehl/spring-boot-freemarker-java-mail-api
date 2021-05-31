@@ -3,6 +3,7 @@ package com.hardik.hedwig.controller;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,9 +27,10 @@ public class UserController {
 
 	private final UserService userService;
 
-	@PostMapping
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = ApiConstant.ACCOUNT_CREATION_SUCCESS_SUMMARY),
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = ApiConstant.ACCOUNT_CREATION_SUCCESS_SUMMARY),
 			@ApiResponse(responseCode = "403", description = ApiConstant.EMAIL_ID_ALREADY_EXISTS) })
 	@Operation(summary = ApiConstant.ACCOUNT_CREATION_SUMMARY)
 	public ResponseEntity<?> userCreationHandler(
