@@ -1,13 +1,14 @@
 package com.hardik.hedwig.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -31,6 +32,11 @@ public class User implements Serializable {
 	private String fullName;
 
 	@Column(name = "created_at", nullable = false)
-	private LocalDate createdAt;
+	private LocalDateTime createdAt;
+
+	@PrePersist
+	void setUp() {
+		this.createdAt = LocalDateTime.now();
+	}
 
 }
