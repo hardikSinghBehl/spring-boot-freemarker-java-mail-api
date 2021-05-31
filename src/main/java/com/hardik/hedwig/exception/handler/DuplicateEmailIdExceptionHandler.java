@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.hardik.hedwig.constant.ApiConstant;
 import com.hardik.hedwig.exception.DuplicateEmailIdException;
 
 @ControllerAdvice
@@ -20,9 +21,9 @@ public class DuplicateEmailIdExceptionHandler {
 	@ExceptionHandler(DuplicateEmailIdException.class)
 	public ResponseEntity<?> methodArgumentNotValidException(DuplicateEmailIdException exception) {
 		final var response = new JSONObject();
-		response.put("status", "Failure");
-		response.put("message", "Account already exists with provided email-id");
-		response.put("timestamp", LocalDateTime.now().toString());
+		response.put(ApiConstant.STATUS, ApiConstant.FAILURE_STATUS);
+		response.put(ApiConstant.MESSAGE, ApiConstant.EMAIL_ID_ALREADY_EXISTS);
+		response.put(ApiConstant.TIMESTAMP, LocalDateTime.now().toString());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response.toString());
 	}
 

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.hardik.hedwig.constant.ApiConstant;
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class ValidationFailureExceptionHandler {
@@ -29,9 +31,9 @@ public class ValidationFailureExceptionHandler {
 		String errorMessage = fieldErrors.get(0).getDefaultMessage();
 
 		final var response = new JSONObject();
-		response.put("status", "Failure");
-		response.put("message", errorMessage);
-		response.put("timestamp", LocalDateTime.now().toString());
+		response.put(ApiConstant.STATUS, ApiConstant.FAILURE_STATUS);
+		response.put(ApiConstant.MESSAGE, errorMessage);
+		response.put(ApiConstant.TIMESTAMP, LocalDateTime.now().toString());
 		return ResponseEntity.badRequest().body(response.toString());
 	}
 

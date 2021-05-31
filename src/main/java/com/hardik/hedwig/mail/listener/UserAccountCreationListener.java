@@ -8,6 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import com.hardik.hedwig.constant.EmailTemplate;
 import com.hardik.hedwig.dto.UserCreationRequestDto;
 import com.hardik.hedwig.mail.event.UserAccountCreationEvent;
 import com.hardik.hedwig.mail.service.EmailService;
@@ -29,8 +30,9 @@ public class UserAccountCreationListener {
 	public void listenToUserAccountCreationEvent(UserAccountCreationEvent userAccountCreationEvent) {
 		final var userCreationRequestDto = (UserCreationRequestDto) userAccountCreationEvent.getSource();
 		try {
-			emailService.sendEmail(userCreationRequestDto.getEmailId(), "Account Created Successfully",
-					MapUtility.convert(userCreationRequestDto), "account-creation-success");
+			emailService.sendEmail(userCreationRequestDto.getEmailId(),
+					EmailTemplate.USER_ACCOUNT_CREATION.getSubject(), MapUtility.convert(userCreationRequestDto),
+					EmailTemplate.USER_ACCOUNT_CREATION.getTemplateName());
 		} catch (MessagingException | IOException | TemplateException exception) {
 			log.error("UNABLE TO SEND USER ACCOUNT CREATON EMAIL: {}", userCreationRequestDto.getEmailId());
 		}

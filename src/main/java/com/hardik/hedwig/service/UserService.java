@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.hardik.hedwig.constant.ApiConstant;
 import com.hardik.hedwig.dto.UserCreationRequestDto;
 import com.hardik.hedwig.entity.User;
 import com.hardik.hedwig.exception.DuplicateEmailIdException;
@@ -44,9 +45,9 @@ public class UserService {
 		// Publish User Account Creation Event Occurrence
 		applicationEventPublisher.publishEvent(new UserAccountCreationEvent(userCreationRequestDto));
 
-		response.put("message", "Account Created Successfully!, Kindly check your id: " + savedUser.getEmailId()
-				+ " for a confirmation mail");
-		response.put("timestamp", savedUser.getCreatedAt().toString());
+		response.put(ApiConstant.MESSAGE,
+				ApiConstant.ACCOUNT_CREATION_SUCCESS_RESPONSE.replace("{}", savedUser.getEmailId()));
+		response.put(ApiConstant.TIMESTAMP, savedUser.getCreatedAt().toString());
 		return ResponseEntity.ok(response.toString());
 	}
 
