@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.hardik.hedwig.dto.UserCreationRequestDto;
 import com.hardik.hedwig.entity.User;
+import com.hardik.hedwig.exception.DuplicateEmailIdException;
 import com.hardik.hedwig.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
@@ -18,7 +19,15 @@ public class UserService {
 
 	private final UserRepository userRepository;
 
+	private boolean userExists(final String emailId) {
+		return userRepository.existsByEmailId(emailId);
+	}
+
 	public ResponseEntity<?> create(final UserCreationRequestDto userCreationRequestDto) {
+
+		if (userExists(userCreationRequestDto.getEmailId()))
+			throw new DuplicateEmailIdException();
+
 		final var user = new User();
 		final var response = new JSONObject();
 
