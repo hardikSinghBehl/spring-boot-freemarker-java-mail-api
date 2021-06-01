@@ -7,6 +7,7 @@ public class ApiConstant {
 	public static final String EMAIL_ID_ALREADY_EXISTS = "Account already exists with provided email-id";
 	public static final String ACCOUNT_CREATION_SUMMARY = "Creates a user account";
 	public static final String ACCOUNT_CREATION_SUCCESS_RESPONSE = "Account Created Successfully!, Kindly check your id: {} for a confirmation mail";
+	public static final String GENERIC_FAILURE = "Something Went Wrong";
 
 	public static final String STATUS = "status";
 	public static final String MESSAGE = "message";

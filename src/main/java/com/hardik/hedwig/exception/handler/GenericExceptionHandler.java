@@ -11,20 +11,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.hardik.hedwig.constant.ApiConstant;
-import com.hardik.hedwig.exception.DuplicateEmailIdException;
 
 @ControllerAdvice
-public class DuplicateEmailIdExceptionHandler {
+public class GenericExceptionHandler {
 
-	@ResponseStatus(value = HttpStatus.FORBIDDEN)
+	@ResponseStatus(value = HttpStatus.NOT_IMPLEMENTED)
 	@ResponseBody
-	@ExceptionHandler(DuplicateEmailIdException.class)
-	public ResponseEntity<?> duplicateEmailIdExceptionHandler(DuplicateEmailIdException exception) {
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<?> genericExceptionHandler(Exception exception) {
 		final var response = new JSONObject();
 		response.put(ApiConstant.STATUS, ApiConstant.FAILURE_STATUS);
-		response.put(ApiConstant.MESSAGE, ApiConstant.EMAIL_ID_ALREADY_EXISTS);
+		response.put(ApiConstant.MESSAGE, ApiConstant.GENERIC_FAILURE);
 		response.put(ApiConstant.TIMESTAMP, LocalDateTime.now().toString());
-		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response.toString());
+		return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(response.toString());
 	}
 
 }
