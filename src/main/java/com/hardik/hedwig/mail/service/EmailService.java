@@ -30,7 +30,7 @@ public class EmailService {
 
 	private final JavaMailSender javaMailSender;
 
-	private final Configuration configuration;
+	private final Configuration freemarkerConfiguration;
 
 	private final EmailConfigurationProperties emailConfigurationProperties;
 
@@ -42,7 +42,7 @@ public class EmailService {
 		MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
 				StandardCharsets.UTF_8.name());
 
-		Template template = configuration.getTemplate(templateName + ".ftl");
+		Template template = freemarkerConfiguration.getTemplate(templateName + ".ftl");
 		String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 		helper.setTo(toMail);
 		helper.setText(html, true);
